@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8509a85172c74b2fa04ce8ca7f079f3e" Name="Diagram1">
+        <EntityTypeShape EntityType="TechnoserviceModel.Application" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechnoserviceModel.CommentApplication" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechnoserviceModel.RoleUser" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechnoserviceModel.StatusApplication" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechnoserviceModel.UserApplication" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechnoserviceModel.UserService" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="TechnoserviceModel.FK__Applicati__Statu__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="TechnoserviceModel.FK__CommentAp__AppCo__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="TechnoserviceModel.FK__UserAppli__Appli__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="TechnoserviceModel.FK__CommentAp__Speci__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="TechnoserviceModel.FK__UserServi__UserR__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="TechnoserviceModel.FK__UserAppli__UserI__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

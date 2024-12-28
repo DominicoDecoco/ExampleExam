@@ -1,0 +1,48 @@
+﻿<Window x:Class="ExampleExam.View.MenegerMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExampleExam.View"
+        mc:Ignorable="d"
+        Title="MenegerMenu" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Margin="10" Height="50" Width="150" Content="Создать заявку" Click="CreateApplication"></Button>
+            <Button Margin="10" Height="50" Width="150" Content="Изменить завку заявку" Click="EditApplication"></Button>
+            <Button Margin="10" Height="50" Width="150" Content="Выйти" Click="Exit"></Button>
+        </StackPanel>
+        <ListView Name="lvApplication" Grid.Row="1" Margin="10" ItemsSource="{Binding Applications}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0">
+                            <Run Text="{Binding ClientName}"/>
+                            <LineBreak/>
+                            <Run Text=" Контактный номер: "/>
+                            <LineBreak/>
+                            <Run Text="{Binding PhoneClient}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding StatusApplication.NameStatus}"/>
+                            <LineBreak/>
+                            <Run Text=" Открыта заявка: "/>
+                            <Run Text="{Binding DateOpenApp}"/>
+                            <Run Text=" Закрыта заявка: "/>
+                            <Run Text="{Binding DateCloseApp}"/>
+                            <LineBreak/>
+                            <Run Text=" Стоимость: "/>
+                            <Run Text="{Binding Price}"/>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

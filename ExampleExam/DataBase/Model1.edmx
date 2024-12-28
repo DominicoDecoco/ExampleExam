@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TechnoserviceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="IDApplication" />
+          </Key>
+          <Property Name="IDApplication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="150" />
+          <Property Name="PhoneClient" Type="nvarchar" MaxLength="11" />
+          <Property Name="StatusApp" Type="int" />
+          <Property Name="DateOpenApp" Type="datetime" />
+          <Property Name="DateCloseApp" Type="datetime" />
+          <Property Name="Price" Type="float" />
+        </EntityType>
+        <EntityType Name="CommentApplication">
+          <Key>
+            <PropertyRef Name="IDComment" />
+          </Key>
+          <Property Name="IDComment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comment" Type="text" />
+          <Property Name="Specialist" Type="int" />
+          <Property Name="AppComment" Type="int" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRole" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="StatusApplication">
+          <Key>
+            <PropertyRef Name="IDStatus" />
+          </Key>
+          <Property Name="IDStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatus" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="UserApplication">
+          <Key>
+            <PropertyRef Name="UserInApplication" />
+            <PropertyRef Name="ApplicationInUser" />
+          </Key>
+          <Property Name="UserInApplication" Type="int" Nullable="false" />
+          <Property Name="ApplicationInUser" Type="int" Nullable="false" />
+          <Property Name="DateJoining" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserService">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginUser" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserRole" Type="int" />
+        </EntityType>
+        <Association Name="FK__Applicati__Statu__2B3F6F97">
+          <End Role="StatusApplication" Type="Self.StatusApplication" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusApplication">
+              <PropertyRef Name="IDStatus" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="StatusApp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentAp__AppCo__3D5E1FD2">
+          <End Role="Applications" Type="Self.Applications" Multiplicity="0..1" />
+          <End Role="CommentApplication" Type="Self.CommentApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="CommentApplication">
+              <PropertyRef Name="AppComment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentAp__Speci__3C69FB99">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="CommentApplication" Type="Self.CommentApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="CommentApplication">
+              <PropertyRef Name="Specialist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAppli__Appli__2F10007B">
+          <End Role="Applications" Type="Self.Applications" Multiplicity="1" />
+          <End Role="UserApplication" Type="Self.UserApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="UserApplication">
+              <PropertyRef Name="ApplicationInUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAppli__UserI__2E1BDC42">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="1" />
+          <End Role="UserApplication" Type="Self.UserApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserApplication">
+              <PropertyRef Name="UserInApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserServi__UserR__267ABA7A">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="0..1" />
+          <End Role="UserService" Type="Self.UserService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="UserService">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TechnoserviceModelContainer">
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentApplication" EntityType="Self.CommentApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleUser" EntityType="Self.RoleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusApplication" EntityType="Self.StatusApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserApplication" EntityType="Self.UserApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserService" EntityType="Self.UserService" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Applicati__Statu__2B3F6F97" Association="Self.FK__Applicati__Statu__2B3F6F97">
+            <End Role="StatusApplication" EntitySet="StatusApplication" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentAp__AppCo__3D5E1FD2" Association="Self.FK__CommentAp__AppCo__3D5E1FD2">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="CommentApplication" EntitySet="CommentApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentAp__Speci__3C69FB99" Association="Self.FK__CommentAp__Speci__3C69FB99">
+            <End Role="UserService" EntitySet="UserService" />
+            <End Role="CommentApplication" EntitySet="CommentApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAppli__Appli__2F10007B" Association="Self.FK__UserAppli__Appli__2F10007B">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="UserApplication" EntitySet="UserApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAppli__UserI__2E1BDC42" Association="Self.FK__UserAppli__UserI__2E1BDC42">
+            <End Role="UserService" EntitySet="UserService" />
+            <End Role="UserApplication" EntitySet="UserApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserServi__UserR__267ABA7A" Association="Self.FK__UserServi__UserR__267ABA7A">
+            <End Role="RoleUser" EntitySet="RoleUser" />
+            <End Role="UserService" EntitySet="UserService" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TechnoserviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="IDApplication" />
+          </Key>
+          <Property Name="IDApplication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneClient" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="StatusApp" Type="Int32" />
+          <Property Name="DateOpenApp" Type="DateTime" Precision="3" />
+          <Property Name="DateCloseApp" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Double" />
+          <NavigationProperty Name="StatusApplication" Relationship="Self.FK__Applicati__Statu__2B3F6F97" FromRole="Applications" ToRole="StatusApplication" />
+          <NavigationProperty Name="CommentApplications" Relationship="Self.FK__CommentAp__AppCo__3D5E1FD2" FromRole="Applications" ToRole="CommentApplication" />
+          <NavigationProperty Name="UserApplications" Relationship="Self.FK__UserAppli__Appli__2F10007B" FromRole="Applications" ToRole="UserApplication" />
+        </EntityType>
+        <EntityType Name="CommentApplication">
+          <Key>
+            <PropertyRef Name="IDComment" />
+          </Key>
+          <Property Name="IDComment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Specialist" Type="Int32" />
+          <Property Name="AppComment" Type="Int32" />
+          <NavigationProperty Name="Application" Relationship="Self.FK__CommentAp__AppCo__3D5E1FD2" FromRole="CommentApplication" ToRole="Applications" />
+          <NavigationProperty Name="UserService" Relationship="Self.FK__CommentAp__Speci__3C69FB99" FromRole="CommentApplication" ToRole="UserService" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRole" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserServices" Relationship="Self.FK__UserServi__UserR__267ABA7A" FromRole="RoleUser" ToRole="UserService" />
+        </EntityType>
+        <EntityType Name="StatusApplication">
+          <Key>
+            <PropertyRef Name="IDStatus" />
+          </Key>
+          <Property Name="IDStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__Statu__2B3F6F97" FromRole="StatusApplication" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="UserApplication">
+          <Key>
+            <PropertyRef Name="UserInApplication" />
+            <PropertyRef Name="ApplicationInUser" />
+          </Key>
+          <Property Name="UserInApplication" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationInUser" Type="Int32" Nullable="false" />
+          <Property Name="DateJoining" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Application" Relationship="Self.FK__UserAppli__Appli__2F10007B" FromRole="UserApplication" ToRole="Applications" />
+          <NavigationProperty Name="UserService" Relationship="Self.FK__UserAppli__UserI__2E1BDC42" FromRole="UserApplication" ToRole="UserService" />
+        </EntityType>
+        <EntityType Name="UserService">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserRole" Type="Int32" />
+          <NavigationProperty Name="CommentApplications" Relationship="Self.FK__CommentAp__Speci__3C69FB99" FromRole="UserService" ToRole="CommentApplication" />
+          <NavigationProperty Name="RoleUser" Relationship="Self.FK__UserServi__UserR__267ABA7A" FromRole="UserService" ToRole="RoleUser" />
+          <NavigationProperty Name="UserApplications" Relationship="Self.FK__UserAppli__UserI__2E1BDC42" FromRole="UserService" ToRole="UserApplication" />
+        </EntityType>
+        <Association Name="FK__Applicati__Statu__2B3F6F97">
+          <End Role="StatusApplication" Type="Self.StatusApplication" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusApplication">
+              <PropertyRef Name="IDStatus" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="StatusApp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentAp__AppCo__3D5E1FD2">
+          <End Role="Applications" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="CommentApplication" Type="Self.CommentApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="CommentApplication">
+              <PropertyRef Name="AppComment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAppli__Appli__2F10007B">
+          <End Role="Applications" Type="Self.Application" Multiplicity="1" />
+          <End Role="UserApplication" Type="Self.UserApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="UserApplication">
+              <PropertyRef Name="ApplicationInUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentAp__Speci__3C69FB99">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="CommentApplication" Type="Self.CommentApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="CommentApplication">
+              <PropertyRef Name="Specialist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserServi__UserR__267ABA7A">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="0..1" />
+          <End Role="UserService" Type="Self.UserService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="UserService">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAppli__UserI__2E1BDC42">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="1" />
+          <End Role="UserApplication" Type="Self.UserApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserApplication">
+              <PropertyRef Name="UserInApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TechnoserviceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="CommentApplications" EntityType="Self.CommentApplication" />
+          <EntitySet Name="RoleUsers" EntityType="Self.RoleUser" />
+          <EntitySet Name="StatusApplications" EntityType="Self.StatusApplication" />
+          <EntitySet Name="UserApplications" EntityType="Self.UserApplication" />
+          <EntitySet Name="UserServices" EntityType="Self.UserService" />
+          <AssociationSet Name="FK__Applicati__Statu__2B3F6F97" Association="Self.FK__Applicati__Statu__2B3F6F97">
+            <End Role="StatusApplication" EntitySet="StatusApplications" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentAp__AppCo__3D5E1FD2" Association="Self.FK__CommentAp__AppCo__3D5E1FD2">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="CommentApplication" EntitySet="CommentApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAppli__Appli__2F10007B" Association="Self.FK__UserAppli__Appli__2F10007B">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="UserApplication" EntitySet="UserApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentAp__Speci__3C69FB99" Association="Self.FK__CommentAp__Speci__3C69FB99">
+            <End Role="UserService" EntitySet="UserServices" />
+            <End Role="CommentApplication" EntitySet="CommentApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserServi__UserR__267ABA7A" Association="Self.FK__UserServi__UserR__267ABA7A">
+            <End Role="RoleUser" EntitySet="RoleUsers" />
+            <End Role="UserService" EntitySet="UserServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAppli__UserI__2E1BDC42" Association="Self.FK__UserAppli__UserI__2E1BDC42">
+            <End Role="UserService" EntitySet="UserServices" />
+            <End Role="UserApplication" EntitySet="UserApplications" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TechnoserviceModelContainer" CdmEntityContainer="TechnoserviceEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="TechnoserviceModel.Application">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="IDApplication" ColumnName="IDApplication" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="PhoneClient" ColumnName="PhoneClient" />
+                <ScalarProperty Name="StatusApp" ColumnName="StatusApp" />
+                <ScalarProperty Name="DateOpenApp" ColumnName="DateOpenApp" />
+                <ScalarProperty Name="DateCloseApp" ColumnName="DateCloseApp" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommentApplications">
+            <EntityTypeMapping TypeName="TechnoserviceModel.CommentApplication">
+              <MappingFragment StoreEntitySet="CommentApplication">
+                <ScalarProperty Name="IDComment" ColumnName="IDComment" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Specialist" ColumnName="Specialist" />
+                <ScalarProperty Name="AppComment" ColumnName="AppComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleUsers">
+            <EntityTypeMapping TypeName="TechnoserviceModel.RoleUser">
+              <MappingFragment StoreEntitySet="RoleUser">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusApplications">
+            <EntityTypeMapping TypeName="TechnoserviceModel.StatusApplication">
+              <MappingFragment StoreEntitySet="StatusApplication">
+                <ScalarProperty Name="IDStatus" ColumnName="IDStatus" />
+                <ScalarProperty Name="NameStatus" ColumnName="NameStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserApplications">
+            <EntityTypeMapping TypeName="TechnoserviceModel.UserApplication">
+              <MappingFragment StoreEntitySet="UserApplication">
+                <ScalarProperty Name="UserInApplication" ColumnName="UserInApplication" />
+                <ScalarProperty Name="ApplicationInUser" ColumnName="ApplicationInUser" />
+                <ScalarProperty Name="DateJoining" ColumnName="DateJoining" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserServices">
+            <EntityTypeMapping TypeName="TechnoserviceModel.UserService">
+              <MappingFragment StoreEntitySet="UserService">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

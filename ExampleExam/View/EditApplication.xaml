@@ -1,0 +1,46 @@
+﻿<Window x:Class="ExampleExam.View.EditApplication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExampleExam.View"
+        mc:Ignorable="d"
+        Title="EditApplication" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Width="400">Имя клиента</Label>
+            <TextBox Name="clientNameTextBox" Width="400" Margin="2"></TextBox>
+            <Label Width="400">контактный номер клиента</Label>
+            <TextBox Name="phoneClientTextBox" Width="400" Margin="2"></TextBox>
+            <Label Width="400">Стоимость</Label>
+            <TextBox Name="priceTextBox" Width="400" Margin="2"></TextBox>
+            <Label Width="400">Статус заявки</Label>
+            <ComboBox  Width="400" 
+             Name="cbStatus" 
+            ItemsSource="{Binding StatusApplications}"
+            SelectedValue="{Binding SelectedApplication.StatusApplication.IDStatus}" 
+            SelectedValuePath="IDStatus" 
+            DisplayMemberPath="NameStatus" 
+            Margin="5"></ComboBox>
+            <Label Width="400">Закрытие заявки</Label>
+            <DatePicker Width="400"></DatePicker>
+            <Button Margin="2" Content="Сохранить данные" Click="SafeApplication"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <ComboBox Name="cbSpec" ItemsSource="{Binding UserServices}" SelectedValuePath="IDUser" DisplayMemberPath="LoginUser" Margin="5"></ComboBox>
+            <Button Margin="5" Height="30" Content="Добавить специалиста" Click="AddSpecialist_Click"></Button>
+        </StackPanel>
+        <ListView Name="lvMaster" Grid.Row="2" Margin="5" ItemsSource="{Binding SelectedSpecialists}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Логин специалиста" DisplayMemberBinding="{Binding LoginUser }" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
